@@ -13,7 +13,7 @@ public class Main {
         for(int i = 0; i < N; i++)        // N번만큼 반복
             array[i] = Integer.parseInt(br.readLine());
 
-        Arrays.sort(array);     // 배열을 오름차순으로 정렬
+        Arrays.sort(array);
 
         for(int j = 0; j < N; j++) {
             bw.write(String.valueOf(array[j]));
