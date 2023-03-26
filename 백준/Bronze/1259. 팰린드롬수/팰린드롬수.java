@@ -5,7 +5,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));       // 버퍼 스트림을 통해 입력
         StringBuilder stb = new StringBuilder();                                        // StringBuilder 사용
 
-        boolean check = true;                       // check 변수 초깃값 설정
+        boolean check = true;                       // 팰린드롬수 확인을 위한 변수 초깃값 설정
         while(true) {
             String question = br.readLine();        // 판별하기 위한 수를 입력
 
