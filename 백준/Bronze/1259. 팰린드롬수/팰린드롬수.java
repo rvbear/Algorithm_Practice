@@ -5,7 +5,7 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));       // 버퍼 스트림을 통해 입력
         StringBuilder stb = new StringBuilder();                                        // StringBuilder 사용
 
-        boolean check = true;
+        boolean check = true;                       // check 변수 초깃값 설정
         while(true) {
             String question = br.readLine();        // 판별하기 위한 수를 입력
 
@@ -20,7 +20,7 @@ public class Main {
 
             if(check)                               // 팰린드롬수라면 StringBuilder에 yes 저장
                 stb.append("yes\n");
-            check = true;
+            check = true;                           // check 변수 초기화
         }
 
         System.out.print(stb);          // StringBuilder에 저장된 값을 출력
