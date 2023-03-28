@@ -22,7 +22,7 @@ public class Main {
         for(int j = 0; j < M; j++) {                                // M번 반복
             int find = Integer.parseInt(stk.nextToken());
             if (map.containsKey(find))                      // 상근이가 카드를 가지고 있다면
-                bw.write(String.valueOf(map.get(find)) + " ");
+                bw.write(map.get(find) + " ");
             else                                                    // 카드를 가지고 있지 않다면
                 bw.write(0 + " ");
         }
