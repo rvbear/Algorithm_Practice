@@ -1,23 +1,21 @@
+import java.io.*;
 import java.util.*;
 
 public class Main {
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));           // 버퍼 스트림을 통해 입력
 
-		int num = scan.nextInt(); // 학생 수 입력
-		ArrayList<Integer> student = new ArrayList<Integer>(); // 각자 뽑은 번호를 저장할 배열 생성
+        int N = Integer.parseInt(br.readLine());                            // 학생의 수
+        StringTokenizer stk = new StringTokenizer(br.readLine());           // StringTokenizer를 사용해 분해
 
-		for (int i = 0; i < num; i++) {
-			int n = scan.nextInt();
-			if (n == 0)		// 0일 경우 그 자리 그대로
-				student.add(i + 1);
-			else		// 뽑은 숫자만큼 앞으로
-				student.add(student.size() - n, i + 1);
-		}
+        ArrayList<Integer> arrayList = new ArrayList<>();                   // 학생 순서를 담을 배열
+        for(int i = 0; i < N; i++)                                          // N번 반복
+            // 배열의 크기에서 뽑은 숫자를 뺀다면 원하는 위치가 나옴
+            arrayList.add(arrayList.size() - Integer.parseInt(stk.nextToken()), i + 1);
 
-		for (int i = 0; i < student.size(); i++)
-			System.out.print(student.get(i) + " ");
+        for(int i = 0; i < N; i++)                  // 배열에 저장된 값 출력
+            System.out.print(arrayList.get(i) + " ");
 
-		scan.close();
-	}
+        br.close();     // 입력 버퍼 스트림 닫아줌
+    }
 }
