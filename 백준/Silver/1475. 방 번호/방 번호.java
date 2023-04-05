@@ -1,38 +1,34 @@
-import java.util.*;
+import java.io.*;
 
 public class Main {
-	static int arr[] = new int[10];
-	static int cnt = 0;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));       // 버퍼 스트림을 통해 입력
 
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+        String room = br.readLine();                    // 방번호 입력
+        int[] set = new int[10];                        // set 배열 선언
+        int count = 0;                                  // count 설정
 
-		String N = scanner.nextLine();
-		int[] num = new int[N.length()];
+        for (int i = 0; i < room.length(); i++) {
+            int num = room.charAt(i) - '0';             // 아스키 코드를 사용하여 값을 저장
+            if (set[num] == 0) {                        // 사용된 적 없을 경우
+                if (num == 6 && set[9] != 0) {          // 6은 사용된 적 없지만 9는 사용된 적 있을 경우
+                    set[9] -= 1;
+                    continue;
+                } else if (num == 9 && set[6] != 0) {   // 9는 사용된 적 없지만 6은 사용된 적 있을 경우
+                    set[6] -= 1;
+                    continue;
+                } else {                                // 모두 사용된 적 있을 경우
+                    for (int j = 0; j < 10; j++)
+                        set[j] += 1;
+                    count++;
+                    set[num] -= 1;
+                }
+            } else                                      // 사용된 적 있을 경우
+                set[num] -= 1;
+        }
 
-		for (int i = 0; i < N.length(); i++)
-			num[i] = N.charAt(i) - '0';
+        System.out.println(count);
 
-		for (int i = 0; i < N.length(); i++) {
-			if (arr[num[i]] == 0) {
-				if (num[i] == 6 && arr[9] != 0) {
-					arr[9] -= 1;
-					continue;
-				} else if (num[i] == 9 && arr[6] != 0) {
-					arr[6] -= 1;
-					continue;
-				} else {
-					for (int j = 0; j < 10; j++)
-						arr[j] += 1;
-					cnt++;
-					arr[num[i]] -= 1;
-				}
-			} else
-				arr[num[i]] -= 1;
-		}
-
-		System.out.println(cnt);
-
-		scanner.close();
-	}
+        br.close();     // 입력 버퍼 스트림 닫아줌
+    }
 }
