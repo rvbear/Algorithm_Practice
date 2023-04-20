@@ -6,8 +6,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer stk = new StringTokenizer(br.readLine());
 
-        int a = Integer.parseInt(stk.nextToken());
-        int b = Integer.parseInt(stk.nextToken());
+        long a = Long.parseLong(stk.nextToken());
+        long b = Long.parseLong(stk.nextToken());
         
         System.out.println((a+b)*(a-b));
         br.close();
