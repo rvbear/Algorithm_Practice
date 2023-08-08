@@ -11,11 +11,11 @@ public class Main {
         stk = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++) {
             if (Integer.parseInt(stk.nextToken()) == 1) {
-                arrayList.add(i);                               // 라이언 인형일 경우 count 증가
+                arrayList.add(i);                               // 라이언 인형일 경우 배열에 저장
             }
         }
 
-        if(arrayList.size() < k) {                              // count가 최소 개수를 못 넘길 경우
+        if(arrayList.size() < k) {                              // 배열의 크기가 최소 개수를 못 넘길 경우
             System.out.println(-1);                             // 만들 수 없는 집합이므로 -1 출력
         } else {
             int start = 0, end = k-1, min = 1_000_001;          // 시작값, 종료값, 최솟값
