@@ -9,29 +9,29 @@ class Point {           // 좌표 클래스
     }
 }
 public class Main {
+    static int n;                   // 매점의 개수
+    static Point[] store;           // 매점의 좌표를 저장할 배열
+    static boolean[] visit;         // 매점 방문 여부를 확인할 배열
     // 맨해튼 거리 구하기 메서드
     public static int Manhattan(Point p1, Point p2) {
         return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
     }
     // BFS 탐색 메서드
-    public static boolean bfs(ArrayList<ArrayList<Integer>> graph, int n) {
-        Queue<Integer> queue = new LinkedList<>();
-        queue.offer(0);
-
-        boolean[] visit = new boolean[n+2];
-        visit[0] = true;
+    public static boolean bfs(Point home, Point festival) {
+        Queue<Point> queue = new LinkedList<>();
+        queue.offer(home);
 
         while(!queue.isEmpty()) {
-            int now = queue.poll();
+            Point now = queue.poll();
 
-            if(now == n+1) {
+            if(Manhattan(now, festival) <= 1000) {          // 맨해튼 거리 1000m 안에 있으면 갈 수 있음
                 return true;
             }
 
-            for(int next : graph.get(now)) {
-                if(!visit[next]) {
-                    visit[next] = true;
-                    queue.offer(next);
+            for(int i = 0; i < n; i++) {                    // 갈 수 없다면 다른 매점을 들려서 가야함
+                if(!visit[i] && Manhattan(now, store[i]) <= 1000) {
+                    queue.offer(store[i]);
+                    visit[i] = true;
                 }
             }
         }
@@ -41,34 +41,25 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int t = Integer.parseInt(br.readLine());
-        ArrayList<Point> point;                 // 집, 편의점, 페스티벌의 x, y 좌표를 저장할 배열
-        ArrayList<ArrayList<Integer>> graph;
+        StringTokenizer stk;
+        int t = Integer.parseInt(br.readLine());            // 테스트 케이스 개수
+        
         for(int i = 0; i < t; i++) {
-            int n = Integer.parseInt(br.readLine());
-            point = new ArrayList<>();
-            for(int j = 0; j < n+2; j++) {
-                StringTokenizer stk = new StringTokenizer(br.readLine());
-                point.add(new Point(Integer.parseInt(stk.nextToken()),Integer.parseInt(stk.nextToken())));
+            n = Integer.parseInt(br.readLine());
+            stk = new StringTokenizer(br.readLine());
+            // 집의 좌표 저장
+            Point home = new Point(Integer.parseInt(stk.nextToken()),Integer.parseInt(stk.nextToken()));
+            store = new Point[n];                           
+            visit = new boolean[n];                          
+            for(int j = 0; j < n; j++) {                    // 매점의 좌표를 저장
+                stk = new StringTokenizer(br.readLine());
+                store[j] = new Point(Integer.parseInt(stk.nextToken()),Integer.parseInt(stk.nextToken()));
             }
+            stk = new StringTokenizer(br.readLine());
+            // 페스티벌의 좌표 저장
+            Point festival = new Point(Integer.parseInt(stk.nextToken()),Integer.parseInt(stk.nextToken()));
 
-            graph = new ArrayList<>();
-            for(int j = 0; j < n+2; j++) {
-                graph.add(new ArrayList<>());
-            }
-
-            // 맨해튼 거리 1000m 이하를 만족하는 두 정점을 찾은 뒤
-            // 양방향 그래프로 서로 이어줌
-            for(int a = 0; a < n+2; a++) {
-                for(int b = a+1; b < n+2; b++) {
-                    if(Manhattan(point.get(a), point.get(b)) <= 1000) {
-                        graph.get(a).add(b);
-                        graph.get(b).add(a);
-                    }
-                }
-            }
-
-            bw.write((bfs(graph, n) ? "happy" : "sad") + "\n");       // BFS 탐색을 통해 가능, 불가능 여부 판단 후 출력
+            bw.write((bfs(home, festival) ? "happy" : "sad") + "\n");       // BFS 탐색을 통해 가능, 불가능 여부 판단 후 출력
         }
 
         br.close(); bw.close();
