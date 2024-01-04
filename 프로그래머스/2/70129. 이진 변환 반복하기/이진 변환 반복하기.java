@@ -4,9 +4,10 @@ class Solution {
         
         while(!s.equals("1")) {
             count++;
-            remove += (int) s.chars().filter(i -> String.valueOf((char)i).equals("0")).count();
+            int before = s.length();
             s = s.replaceAll("0", "");
             temp = s.length();
+            remove += before - temp;
             s = Integer.toBinaryString(temp);
         }
         
