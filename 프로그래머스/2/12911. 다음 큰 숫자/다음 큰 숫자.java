@@ -6,10 +6,9 @@ class Solution {
         
         int count = Integer.bitCount(n);
         
-        while(true) {
-            int temp = Integer.bitCount(answer++);
-            if(temp == count) break;
-        }
+        while(true) 
+            if(Integer.bitCount(answer++) == count) 
+                break;
         
         return answer - 1;
     }
