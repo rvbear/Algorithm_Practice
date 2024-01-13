@@ -5,11 +5,11 @@ class Solution {
         int answer = 0;
         
         for(int i = 0; i <= discount.length - 10; i++) {
-            String[] arr = Arrays.copyOfRange(discount,i,i+10);
+            String[] arr = Arrays.copyOfRange(discount, i, i+10);
             boolean flag = false;
             for(int j = 0; j < want.length; j++) {
                 int num = Collections.frequency(Arrays.asList(arr), want[j]);
-                if(number[j] > num) {
+                if(number[j] != num) {
                     flag = true;
                     break;
                 }
