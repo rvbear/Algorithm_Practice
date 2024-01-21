@@ -6,7 +6,7 @@ class Solution {
         ArrayList<String> list = new ArrayList<>();
         
         for(int i = 0; i < cities.length && cacheSize > 0; i++) {
-            if(list.indexOf(cities[i].toLowerCase()) != -1 && list.size() != 0) {
+            if(list.contains(cities[i].toLowerCase()) && list.size() != 0) {
                 list.add(list.remove(list.indexOf(cities[i].toLowerCase())));
                 answer += 1;
             } else if(list.size() < cacheSize) {
