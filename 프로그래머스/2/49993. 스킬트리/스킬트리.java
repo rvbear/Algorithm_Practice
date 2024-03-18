@@ -3,17 +3,17 @@ class Solution {
         int answer = 0;
         
         for(int i = 0; i < skill_trees.length; i++) {
-            StringBuilder stb = new StringBuilder();
+            String temp = "";
             
             for(int j = 0; j < skill_trees[i].length(); j++) {
-                String temp = skill_trees[i].substring(j, j + 1);
+                String s = skill_trees[i].substring(j, j + 1);
                 
-                if(skill.contains(temp)) {
-                    stb.append(temp);
+                if(skill.contains(s)) {
+                    temp += s;
                 }
             }
             
-            if(skill.startsWith(stb.toString())) {
+            if(skill.startsWith(temp)) {
                 answer++;
             }
         }
