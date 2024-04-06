@@ -6,15 +6,10 @@ class Solution {
         int[] answer = new int[last - start + 1];
         
         for(int i = start; i <= last; i++) {
-            if (i == 1) {
-                answer[index++] = 0;
-                continue;
-            }
-
             boolean flag = false;
             
             List<Integer> list = new ArrayList<>();
-
+            
             for(int j = 2; j <= Math.sqrt(i); j++) {
                 if (i % j == 0) {
                     list.add(j);
@@ -35,7 +30,7 @@ class Solution {
                 continue;
             }
 
-            answer[index++] = 1;
+            answer[index++] = i == 1 ? 0 : 1;
         }
         
         return answer;
