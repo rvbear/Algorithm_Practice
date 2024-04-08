@@ -11,7 +11,10 @@ class Solution {
         
         for(int i = 0; i < n; i++) {
             int num = pq.poll();
-            pq.add(num == 0 ? 0 : num - 1);
+            if(num == 0) {
+                break;
+            }
+            pq.add(num - 1);
         }
         
         for(int num : pq) {
