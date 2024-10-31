@@ -10,19 +10,12 @@ public class Main {
         int N = Integer.parseInt(input[0]);
         int M = Integer.parseInt(input[1]);
 
-        int[][] map = new int[N+1][N+1];
         int[][] sum = new int[N+1][N+1];
 
         for(int i = 1; i <= N; i++) {
             input = br.readLine().split(" ");
             for(int j = 1; j <= N; j++) {
-                map[i][j] = Integer.parseInt(input[j-1]);
-            }
-        }
-
-        for(int i = 1; i <= N; i++) {
-            for(int j = 1; j <= N; j++) {
-                sum[i][j] = sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1] + map[i][j];
+                sum[i][j] = sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1] + Integer.parseInt(input[j-1]);
             }
         }
 
