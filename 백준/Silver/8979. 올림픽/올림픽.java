@@ -26,18 +26,17 @@ public class Main {
                 if(a1[1] == a2[1]) {
                     return a1[2] != a2[2] ? a2[2] - a1[2] : a2[3] - a1[3];
                 }
-                return a2[1] - a1[1];
+                return a2[1]-a1[1];
             }
         });
 
+        map[0][4] = 1;
         for(int i = 0; i < n; i++) {
-            if(i == 0) {
-                map[i][4] = 1;
-            } else {
-                if((map[i-1][1] == map[i][1]) && (map[i-1][2] == map[i][2]) && (map[i-1][3] == map[i][3])) {
+            if(i != 0) {
+                if((map[i][1] == map[i-1][1]) && (map[i][2] == map[i-1][2]) && (map[i][3] == map[i-1][3])) {
                     map[i][4] = map[i-1][4];
                 } else {
-                    map[i][4] = map[i-1][4] + 1;
+                    map[i][4] = i + 1;
                 }
             }
 
