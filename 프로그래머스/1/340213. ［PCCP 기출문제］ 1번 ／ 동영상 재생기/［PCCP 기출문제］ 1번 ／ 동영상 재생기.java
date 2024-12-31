@@ -1,4 +1,8 @@
 class Solution {
+    public int convertTime(String time) {
+        String[] temp = time.split(":");
+        return 60 * Integer.parseInt(temp[0]) + Integer.parseInt(temp[1]);
+    }
     public int checkOpTime(int posTime, int opStartTime, int opEndTime) {
         if(posTime >= opStartTime && posTime <= opEndTime) {
             return opEndTime;
@@ -7,14 +11,10 @@ class Solution {
         return posTime;
     }
     public String solution(String videoLen, String pos, String opStart, String opEnd, String[] commands) {
-        String[] temp = videoLen.split(":");
-        int allTime = 60 * Integer.parseInt(temp[0]) + Integer.parseInt(temp[1]);
-        temp = pos.split(":");
-        int posTime = 60 * Integer.parseInt(temp[0]) + Integer.parseInt(temp[1]);
-        temp = opStart.split(":");
-        int opStartTime = 60 * Integer.parseInt(temp[0]) + Integer.parseInt(temp[1]);
-        temp = opEnd.split(":");
-        int opEndTime = 60 * Integer.parseInt(temp[0]) + Integer.parseInt(temp[1]);
+        int allTime = convertTime(videoLen);
+        int posTime = convertTime(pos);
+        int opStartTime = convertTime(opStart);
+        int opEndTime = convertTime(opEnd);
         
         posTime = checkOpTime(posTime, opStartTime, opEndTime);
         
