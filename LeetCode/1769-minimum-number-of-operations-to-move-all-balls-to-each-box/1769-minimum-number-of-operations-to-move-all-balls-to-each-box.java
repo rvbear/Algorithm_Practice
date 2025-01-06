@@ -3,15 +3,23 @@ class Solution {
         int n = boxes.length();
         int[] res = new int[n];
 
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                int num = boxes.charAt(j) - '0';
-                
-                if(num == 0 || i == j) {
-                    continue;
-                }
+        int prefixCnt = 0, prefixSum = 0;
 
-                res[i] += Math.abs(j - i);
+        for(int i = 0; i < n; i++) {
+            res[i] = prefixCnt * i - prefixSum;
+            if(boxes.charAt(i) == '1') {
+                prefixCnt++;
+                prefixSum += i;
+            }
+        }
+
+        int suffixCnt = 0, suffixSum = 0;
+
+        for(int i = n-1; i >= 0; i--) {
+            res[i] += suffixSum - suffixCnt * i;
+            if(boxes.charAt(i) == '1') {
+                suffixCnt++;
+                suffixSum += i;
             }
         }
 
