@@ -1,58 +1,30 @@
 import java.util.*;
 
 class Solution {
-    private int[] dx = {0, 0, 1, -1};
-    private int[] dy = {1, -1, 0, 0};
-    
-    private int[] calNextRange(int s, int e, int move, int max) {
-        int nextS = (s == 0 && move > 0) ? 0 : s + move;
-        int nextE = (e == max - 1 && move < 0) ? max - 1 : e + move;
-        
-        if ((nextS < 0 || nextS >= max) && (nextE < 0 || nextE >= max)) {
-            return new int[] {-1, -1};
-        }
-        
-        if (nextS < 0 && nextE >= 0 && nextE < max) {
-            return new int[] {0, nextE};
-        }
-        
-        if (nextE >= max && nextS >= 0 && nextS < max) {
-            return new int[] {nextS, max - 1};
-        }
-        
-        return new int[] {nextS, nextE};
-    }
-    
     public long solution(int n, int m, int x, int y, int[][] queries) {
-        int sx, sy, ex, ey;
-        sx = ex = x;
-        sy = ey = y;
+        int[] point = {y, y+1, x, x+1};
+        int[] dir = {-1, 1, -1, 1};
+        int[] boundary = {0, m, 0, n};
+        int[] limit = {m, m, n, n};
         
         for (int i = queries.length - 1; i >= 0; i--) {
-            int dir = queries[i][0];
-            int cnt = queries[i][1];
-            
-            if (dir == 0 || dir == 1) {
-                int[] res = calNextRange(sy, ey, cnt * dy[dir], m);
-                if (res[0] == -1) {
-                    return 0;
-                }
-                
-                sy = res[0];
-                ey = res[1];
+            int command = queries[i][0];
+            int dx = queries[i][1];
+
+            int reverse = command ^ 1;
+            point[reverse] += dir[reverse] * dx;
+            point[reverse] = Math.max(Math.min(point[reverse], limit[reverse]), 0);
+
+            if (point[command] != boundary[command]) {
+                point[command] += dir[reverse] * dx;
+                point[command] = Math.max(Math.min(point[command], limit[command]), 0);
             }
-            
-            if (dir == 2 || dir == 3) {
-                int[] res = calNextRange(sx, ex, cnt * dx[dir], n);
-                if (res[0] == -1) {
-                    return 0;
-                }
-                
-                sx = res[0];
-                ex = res[1];
+
+            if (point[0] == m || point[1] == 0 || point[2] == n || point[3] == 0) {
+                return 0L;
             }
         }
         
-        return (long)(ex - sx + 1) * (long)(ey - sy + 1);
+        return (1L * (point[1] - point[0])) * (1L * (point[3] - point[2]));
     }
 }
