@@ -20,10 +20,10 @@ public class Main {
             long res = 0;
 
             for (int i = N-2; i > -1; i--) {
-                if (val[i] <= max) {
-                    res += max - val[i];
-                } else {
+                if (val[i] > max) {
                     max = val[i];
+                } else {
+                    res += max - val[i];
                 }
             }
 
