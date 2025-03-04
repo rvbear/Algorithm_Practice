@@ -7,11 +7,11 @@ public class Main {
 
         String[] input = br.readLine().split(" ");
 
-        int n = 0;
+        int total = 0;
         int[] color = new int[m];
         for (int i = 0; i < m; i++) {
             color[i] = Integer.parseInt(input[i]);
-            n += color[i];
+            total += color[i];
         }
 
         int k = Integer.parseInt(br.readLine());
@@ -21,13 +21,18 @@ public class Main {
             return;
         }
 
+        double mod = 1;
+        for (int i = 0; i < k; i++) {
+            mod *= (double) total - i;
+        }
+
         double ans = 0;
         for (int i = 0; i < m; i++) {
-            double value = 1;
+            double temp = 1;
             for (int j = 0; j < k; j++) {
-                value *= ((double) (color[i] - j) / (n - j));
+                temp *= (double) color[i] - j;
             }
-            ans += value;
+            ans += temp / mod;
         }
 
         System.out.println(ans);
