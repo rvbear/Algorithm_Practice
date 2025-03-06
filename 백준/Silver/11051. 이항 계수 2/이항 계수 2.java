@@ -23,6 +23,8 @@ public class Main {
 
         int n = Integer.parseInt(stk.nextToken());
         int k = Integer.parseInt(stk.nextToken());
+
+        k = (n / 2 + 1) < k ? n - k : k;
         dp = new long[n + 1][k + 1];
 
         System.out.println(combination(n, k));
