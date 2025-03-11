@@ -29,7 +29,7 @@ public class Main {
             int cnt = 0;
 
             for (int i = 0; i < n; i++) {
-                int start = 0, end = m - 1, idx = 0;
+                int start = 0, end = m - 1;
 
                 while (start <= end) {
                     int mid = (start + end) / 2;
