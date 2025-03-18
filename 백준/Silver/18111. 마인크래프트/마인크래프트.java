@@ -24,8 +24,8 @@ public class Main {
             }
         }
 
-        int maxHeight = b + blocks < (mapSize * 256) ? (b + blocks) / mapSize : 256;
-        int t = (blocks - (minHeight * mapSize)) * 2;
+        int maxHeight = b + blocks < (mapSize << 8) ? (b + blocks) / mapSize : 256;
+        int t = (blocks - (minHeight * mapSize)) << 1;
 
         int time = t;
         int height = minHeight;
@@ -33,7 +33,7 @@ public class Main {
 
         for (int i = minHeight + 1; i <= maxHeight; i++) {
             blocks += heights[i - 1];
-            t += blocks - ((mapSize - blocks) * 2);
+            t += blocks - ((mapSize - blocks) << 1);
 
             if (time >= t) {
                 time = t;
