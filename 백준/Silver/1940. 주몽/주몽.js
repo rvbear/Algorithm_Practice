@@ -6,21 +6,17 @@ let [n, m, input] = require("fs")
 
 n = Number(n);
 m = Number(m);
-num = input.split(" ").map(Number);
+const numList = input.split(" ").map(Number);
+const visit = new Set(numList);
 
-num.sort((a, b) => a - b);
+let cnt = 0;
 
-let start = 0,
-  end = n - 1,
-  cnt = 0;
-while (start !== end) {
-  if (num[start] + num[end] <= m) {
-    cnt += num[start] + num[end] === m ? 1 : 0;
-    start++;
-    continue;
+for (let v of numList) {
+  let target = m - v;
+
+  if (visit.has(target) && -1 < target && target < 100001) {
+    cnt++;
   }
-
-  end--;
 }
 
-console.log(cnt);
+console.log(Math.floor(cnt / 2));
