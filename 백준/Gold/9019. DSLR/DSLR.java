@@ -27,6 +27,7 @@ public class Main {
             return num % 10 * 1000 + num / 10;
         }
     }
+    
     public static String bfs(int start, int target) {
         boolean[] visit = new boolean[10000];
 
