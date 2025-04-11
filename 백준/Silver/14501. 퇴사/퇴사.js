@@ -4,12 +4,12 @@ let [n, ...input] = require("fs")
   .trim()
   .split("\n");
 
-n = Number(n);
+n = +n;
 input = input.map((v) => v.split(" ").map(Number));
 let dp = Array(n + 1).fill(0);
 
 for (let i = n - 1; i >= 0; i--) {
-  let temp = i + Number(input[i][0]);
+  let temp = i + +input[i][0];
 
   if (temp <= n) {
     dp[i] = Math.max(input[i][1] + dp[temp], dp[i + 1]);
