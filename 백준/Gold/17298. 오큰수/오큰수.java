@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -13,16 +12,21 @@ public class Main {
             a[i] = Integer.parseInt(input[i]);
         }
 
-        Stack<Integer> s = new Stack<>();
+        int[] s = new int[n + 1];
+        s[0] = -1;
+        int pointer = 0;
         int[] res = new int[n];
-
         for (int i = n - 1; i >= 0; i--) {
-            while (!s.isEmpty() && a[i] >= s.peek()) {
-                s.pop();
+            if (pointer == 0) {
+                res[i] = -1;
+                s[++pointer] = a[i];
+            } else {
+                while (pointer > 0 && s[pointer] <= a[i]) {
+                    pointer--;
+                }
+                res[i] = s[pointer];
+                s[++pointer] = a[i];
             }
-
-            res[i] = s.isEmpty() ? -1 : s.peek();
-            s.push(a[i]);
         }
 
         for (int num : res) {
