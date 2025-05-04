@@ -48,7 +48,7 @@ public class Main {
                 totalCost += z;
             }
 
-            Collections.sort(edgeList, (o1, o2) -> o1[2] - o2[2]);
+            edgeList.sort((o1, o2) -> o1[2] - o2[2]);
 
             parent = new int[m];
             for (int i = 0; i < m; i++) {
