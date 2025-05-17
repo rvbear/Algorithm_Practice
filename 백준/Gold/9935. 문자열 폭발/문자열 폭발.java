@@ -1,39 +1,30 @@
 import java.io.*;
-import java.util.*;
 
-public class Main {
+class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder stb = new StringBuilder();
-        String line = br.readLine();
-        String boom = br.readLine();
-        Stack<Character> s = new Stack<>();
+        char[] str = br.readLine().toCharArray();
+        char[] boom = br.readLine().toCharArray();
+        int ansIdx = 0, boomIdx = 0, boomLen = boom.length;
 
-        for (int i = 0; i < line.length(); i++) {
-            s.push(line.charAt(i));
+        while (boomIdx < str.length) {
+            str[ansIdx++] = str[boomIdx++];
 
-            if (s.size() >= boom.length()) {
-                boolean flag = true;
+            if (ansIdx >= boomLen) {
+                int i = 0;
 
-                for (int j = 0; j < boom.length(); j++) {
-                    if (s.get(s.size() - boom.length() + j) != boom.charAt(j)) {
-                        flag = false;
+                for (; i < boomLen; i++) {
+                    if (str[ansIdx - boomLen + i] != boom[i]) {
                         break;
                     }
                 }
 
-                if (flag) {
-                    for (int j = 0; j < boom.length(); j++) {
-                        s.pop();
-                    }
+                if (i == boomLen) {
+                    ansIdx -= boomLen;
                 }
             }
         }
 
-        for (char c : s) {
-            stb.append(c);
-        }
-
-        System.out.println(stb.length() == 0 ? "FRULA" : stb);
+        System.out.println((ansIdx == 0) ? "FRULA" : new String(str, 0, ansIdx));
     }
 }
