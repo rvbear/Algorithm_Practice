@@ -1,6 +1,5 @@
 def solution(players, m, k):
-    server = [0] * 24
-    answer = 0
+    server, answer = [0] * 24, 0
     
     for i in range(24):
         need_server = (players[i] - m) // m + 1 if players[i] >= m else 0
