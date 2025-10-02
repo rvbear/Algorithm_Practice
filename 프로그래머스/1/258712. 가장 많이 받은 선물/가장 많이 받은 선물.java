@@ -28,9 +28,7 @@ class Solution {
                 }
             }
             
-            if(answer < num) {
-                answer = num;
-            }
+            answer = Math.max(answer, num);
         }
         
         return answer;
