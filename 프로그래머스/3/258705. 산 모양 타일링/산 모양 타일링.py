@@ -1,0 +1,5 @@
+def solution(n, tops):
+    x, y = 1, (3 if tops[0] else 2)
+    for i in range(2, n * 2 + 1):
+        x, y = y, (x + y + (y if i % 2 and tops[i // 2] else 0)) % 10007
+    return y
