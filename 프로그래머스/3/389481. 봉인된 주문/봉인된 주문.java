@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     String alphabet = "abcdefghijklmnopqrstuvwxyz";
     
-    public long strToLong(String str) {
+    public long stringToLong(String str) {
         int len = str.length();
         long num = 0;
         
@@ -27,11 +27,11 @@ class Solution {
         return num - 1;
     }
     
-    public String longToStr(long num) {
+    public String longToString(long num) {
         if (num >= 0 && num < 26) {
             return String.valueOf(alphabet.charAt((int)num));
         } else {
-            return longToStr(num / 26 - 1) + longToStr(num % 26);
+            return longToString(num / 26 - 1) + longToString(num % 26);
         }
     }
     
@@ -49,13 +49,13 @@ class Solution {
         n--;
         
         for (int i = 0; i < bans.length; i++) {
-            long num = strToLong(bans[i]);
+            long num = stringToLong(bans[i]);
             
             if (num <= n) {
                 n++;
             }
         }
         
-        return longToStr(n);
+        return longToString(n);
     }
 }
