@@ -1,56 +1,48 @@
 class Solution {
-    private void dijkstra(int src, List<int[]>[] adj, int[] dist) {
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
-        dist[src] = 0;
-        pq.offer(new int[] {0, src});
-
-        while (!pq.isEmpty()) {
-            int[] cur = pq.poll();
-            int d = cur[0], u = cur[1];
-
-            if (d > dist[u]) {
-                continue;
-            }
-
-            for (int[] edge : adj[u]) {
-                int v = edge[0], w = edge[1];
-                if (dist[v] > d + w) {
-                    dist[v] = d + w;
-                    pq.offer(new int[] {dist[v], v});
-                } 
-            }
-        }
-    }
     public long minimumCost(String source, String target, char[] original, char[] changed, int[] cost) {
-        List<int[]>[] adj = new ArrayList[26];
+        int[][] dp = new int[26][26];
         for (int i = 0; i < 26; i++) {
-            adj[i] = new ArrayList<>();
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
         }
 
         for (int i = 0; i < original.length; i++) {
-            adj[original[i] - 'a'].add(new int[] {changed[i] - 'a', cost[i]});
+            dp[original[i] - 'a'][changed[i] - 'a'] = Math.min(dp[original[i] - 'a'][changed[i] - 'a'], cost[i]);
+        }
+        
+        for (int k = 0; k < 26; k++) {
+            for (int i = 0; i < 26; i++) {
+                if (i == k) {
+                    continue;
+                }
+
+                if (dp[i][k] < Integer.MAX_VALUE) {
+                    for (int j = 0; j < 26; j++) {
+                        if (k == j) {
+                            continue;
+                        }
+
+                        if (dp[k][j] < Integer.MAX_VALUE) {
+                            dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k][j]);
+                        }
+                    }
+                }
+            }
         }
 
-        int[][] dist = new int[26][26];
-        for (int i = 0; i <26; i++) {
-            Arrays.fill(dist[i], Integer.MAX_VALUE);
-            dijkstra(i, adj, dist[i]);
-        }
-
-        long ans = 0;
+        long ans = 0L;
         for (int i = 0; i < source.length(); i++) {
-            int u = source.charAt(i) - 'a';
-            int v = target.charAt(i) - 'a';
+            int c1 = source.charAt(i) - 'a';
+            int c2 = target.charAt(i) - 'a';
 
-            if (u == v) {
+            if (c1 == c2) {
                 continue;
             }
 
-            if (dist[u][v] == Integer.MAX_VALUE) {
-                return -1;
+            if (dp[c1][c2] == Integer.MAX_VALUE) {
+                return -1L;
             }
 
-            ans += dist[u][v];
+            ans += (long) dp[c1][c2];
         }
 
         return ans;
