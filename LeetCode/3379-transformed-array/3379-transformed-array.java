@@ -1,17 +1,11 @@
 class Solution {
     public int[] constructTransformedArray(int[] nums) {
         int n = nums.length;
-        int[] res = new int[n];
+        int[] ans = new int[n];
         for (int i = 0; i < n; i++) {
-            if (nums[i] < 0) {
-                res[i] = nums[(i + nums[i] + n * 100) % n];
-            } else if (nums[i] > 0) {
-                res[i] = nums[(i + nums[i]) % n];
-            } else {
-                res[i] = nums[i];
-            }
+            ans[i] = nums[((i + nums[i]) % n + n) % n];
         }
 
-        return res;
+        return ans;
     }
 }
