@@ -1,19 +1,20 @@
 class Solution {
     public double champagneTower(int poured, int query_row, int query_glass) {
-        double[][] tower = new double[102][102];
-        tower[0][0] = (double) poured;
+        double[] dp = new double[query_row + 2];
+        dp[0] = poured;
 
-        for (int i = 0; i <= query_row; i++) {
-            for (int j = 0; j <= query_glass; j++) {
-                if (tower[i][j] > 1.0) {
-                    double excess = (tower[i][j] - 1.0) / 2.0;
-                    tower[i][j] = 1.0;
-                    tower[i + 1][j] += excess;
-                    tower[i + 1][j + 1] += excess;
+        for (int i = 0; i < query_row; i++) {
+            for (int j = Math.min(i, query_glass); j >= 0; j--) {
+                if (dp[j] > 1) {
+                    double val = (dp[j] - 1) / 2.0;
+                    dp[j] = val;
+                    dp[j + 1] += val;
+                } else {
+                    dp[j] = 0;
                 }
             }
         }
 
-        return tower[query_row][query_glass];
+        return Math.min(1, dp[query_glass]);
     }
 }
