@@ -1,23 +1,44 @@
 class Solution {
     public String makeLargestSpecial(String s) {
-        int cnt = 0, j = 0;
-        List<String> list = new ArrayList<>();
+        if (s == null || s.length() == 0 || s.length() == 2) {
+            return s;
+        }
 
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '1') {
-                cnt++;
-            } else {
-                cnt--;
+        PriorityQueue<String> pq = new PriorityQueue<>((a, b) -> b.compareTo(a));
+        int acc = 1, prev = 0;
+
+        for (int i = 1; i <= s.length(); i++) {
+            if (acc == 0) {
+                if (!(prev == 0 && i == s.length())) {
+                    pq.add(makeLargestSpecial(s.substring(prev, i)));
+                }
+
+                prev = i;
             }
 
-            if (cnt == 0) {
-                list.add('1' + makeLargestSpecial(s.substring(j + 1, i)) + '0');
-                j = i + 1;
+            if (i == s.length()) {
+                break;
+            }
+
+            if (s.charAt(i) == '1') {
+                acc++;
+            } else {
+                acc--;
             }
         }
 
-        Collections.sort(list, Collections.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+        
+        while (!pq.isEmpty()) {
+            sb.append(pq.poll());
+        }
 
-        return String.join("", list);
+        if (sb.length() == 0) {
+            sb.append('1');
+            sb.append(makeLargestSpecial(s.substring(1, s.length() - 1)));
+            sb.append('0');
+        }
+
+        return sb.toString();
     }
 }
