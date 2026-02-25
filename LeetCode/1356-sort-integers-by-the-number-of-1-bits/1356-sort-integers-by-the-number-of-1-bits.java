@@ -1,20 +1,21 @@
 class Solution {
     public int[] sortByBits(int[] arr) {
-        Integer[] temp = Arrays.stream(arr).boxed().toArray(Integer[]::new);
-
-        Arrays.sort(temp, (a, b) -> {
-            int cntA = Integer.bitCount(a);
-            int cntB = Integer.bitCount(b);
-
-            if (cntA == cntB) {
-                return a - b;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+            if (a[0] != b[0]) {
+                return a[0] - b[0];
             }
 
-            return cntA - cntB;
+            return a[1] - b[1];
         });
 
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = temp[i];
+            int n = Integer.bitCount(arr[i]);
+            pq.offer(new int[] {n, arr[i]});
+        }
+
+        int idx = 0;
+        while (!pq.isEmpty()) {
+            arr[idx++] = pq.poll()[1];
         }
 
         return arr;
