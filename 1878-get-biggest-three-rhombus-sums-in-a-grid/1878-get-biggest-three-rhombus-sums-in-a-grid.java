@@ -1,61 +1,68 @@
 class Solution {
+    private int first = -1;
+    private int second = -1;
+    private int third = -1;
+
+    private void add(int val) {
+        if (val == first || val == second || val == third) {
+            return;
+        }
+
+        if (val > first) {
+            third = second;
+            second = first;
+            first = val;
+        } else if (val > second) {
+            third = second;
+            second = val;
+        } else if (val > third) {
+            third = val;
+        }
+    }
+
     public int[] getBiggestThree(int[][] grid) {
         int n = grid.length, m = grid[0].length;
 
-        int[][] diag1 = new int[n + 1][m + 1];
-        int[][] diag2 = new int[n + 1][m + 1];
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                diag1[i + 1][j + 1] = diag1[i][j] + grid[i][j];
-                diag2[i + 1][j] = diag2[i][j + 1] + grid[i][j];
+                add(grid[i][j]);
             }
         }
 
-        TreeSet<Integer> top3 = new TreeSet<>();
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                top3.add(grid[i][j]);
-
-                if (top3.size() > 3) {
-                    top3.pollFirst();
-                }
-
                 for (int k = 1; i - k >= 0 && i + k < n && j - k >= 0 && j + k < m; k++) {
-                    int topR = i - k, topC = j;
-                    int rightR = i, rightC = j + k;
-                    int bottomR = i + k, bottomC = j;
-                    int leftR = i, leftC = j - k;
+                    int sum = 0;
 
-                    long border = 0;
-
-                    border += diag1[rightR + 1][rightC + 1] - diag1[topR][topC];
-                    border += diag2[bottomR + 1][bottomC] - diag2[rightR][rightC + 1];
-                    border += diag1[bottomR + 1][bottomC + 1] - diag1[leftR][leftC];
-                    border += diag2[leftR + 1][leftC] - diag2[topR][topC + 1];
-
-                    border -= grid[topR][topC];
-                    border -= grid[rightR][rightC];
-                    border -= grid[bottomR][bottomC];
-                    border -= grid[leftR][leftC];
-
-                    top3.add((int) border);
-
-                    if (top3.size() > 3) {
-                        top3.pollFirst();
+                    for (int d = 0; d < k; d++) {
+                        sum += grid[i - k + d][j + d];
                     }
+
+                    for (int d = 0; d < k; d++) {
+                        sum += grid[i + d][j + k - d];
+                    }
+
+                    for (int d = 0; d < k; d++) {
+                        sum += grid[i + k - d][j - d];
+                    }
+
+                    for (int d = 0; d < k; d++) {
+                        sum += grid[i - d][j - k + d];
+                    }
+
+                    add(sum);
                 }
             }
         }
-        
-        int[] ans = new int[top3.size()];
-        int idx = 0;
 
-        for (int val : top3.descendingSet()) {
-            ans[idx++] = val;
+        if (second == -1) {
+            return new int[] {first};
         }
 
-        return ans;
+        if (third == -1) {
+            return new int[] {first, second};
+        }
+
+        return new int[] {first, second, third};
     }
 }
