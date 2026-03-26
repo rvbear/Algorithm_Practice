@@ -1,7 +1,11 @@
-import java.util.*;
-
 class Solution {
     int copyN;
+
+    public String getHappyString(int n, int k) {
+        copyN = n;
+        return dfs(new StringBuilder(), n, k);
+    }
+
     public String dfs(StringBuilder prefix, int n, int k) {
         if (n == 0) {
             return prefix.toString();
@@ -22,10 +26,5 @@ class Solution {
         }
 
         return "";
-    }
-
-    public String getHappyString(int n, int k) {
-        copyN = n;
-        return dfs(new StringBuilder(), n, k);
     }
 }

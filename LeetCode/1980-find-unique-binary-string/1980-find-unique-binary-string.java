@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Solution {
     public String findDifferentBinaryString(String[] nums) {
         StringBuilder stb = new StringBuilder();
