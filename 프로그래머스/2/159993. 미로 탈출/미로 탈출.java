@@ -7,7 +7,7 @@ class Solution {
     
     public int bfs(int x, int y, char t) {
         Queue<int[]> q = new LinkedList<>();
-        q.add(new int[]{x, y, 0});
+        q.add(new int[] {x, y, 0});
         
         boolean[][] visit = new boolean[map.length][map[0].length];
         
@@ -19,11 +19,11 @@ class Solution {
             
             visit[nx][ny] = true;
             
-            if(map[nx][ny] == t) {
+            if (map[nx][ny] == t) {
                 return count;
             }
             
-            for(int i = 0; i < 4; i++) {
+            for (int i = 0; i < 4; i++) {
                 int mx = nx + dx[i];
                 int my = ny + dy[i];
                 
