@@ -4,14 +4,14 @@ class Solution {
     ArrayList<int[]> list = new ArrayList<>();
     
     public void hanoi(int n, int from, int to, int via) {
-        int[] move = {from, to};
+		int[] move = {from, to};
         
-        if(n == 1) {
+        if (n == 1) {
             list.add(move);
         } else {
-            hanoi(n-1, from, via, to);
+            hanoi(n - 1, from, via, to);
             list.add(move);
-            hanoi(n-1, via, to, from);
+            hanoi(n - 1, via, to, from);
         }
     }
     
