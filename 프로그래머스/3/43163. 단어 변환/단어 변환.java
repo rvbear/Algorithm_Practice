@@ -1,39 +1,53 @@
+import java.util.*;
+
 class Solution {
-    private static boolean[] visit;
-    private static int answer;
-    
-    public void dfs(String begin, String target, String[] words, int count) {
-        if (begin.equals(target)) {
-            answer = Math.min(count, answer);
-            return;
+    static class Node {
+        String next;
+        int edge;
+
+        public Node(String next, int edge) {
+            this.next = next;
+            this.edge = edge;
         }
+    }
+    
+    private boolean isNext(String cur, String n) {
+        int cnt = 0;
         
-        for (int i = 0; i < words.length; i++) {
-            if (visit[i]) {
-                continue;
-            }
-            
-            int k = 0;
-            for(int j = 0; j < begin.length(); j++) {
-                if(begin.charAt(j) == words[i].charAt(j)) {
-                    k++;
+        for (int i = 0; i < n.length(); i++) {
+            if (cur.charAt(i) != n.charAt(i)) {
+                if (++cnt > 1) {
+                    return false;
                 }
             }
-            
-            if (k == begin.length() - 1) {
-                visit[i] = true;
-                dfs(words[i], target, words, count + 1);
-                visit[i] = false;
-            }
         }
+
+        return true;
     }
     
     public int solution(String begin, String target, String[] words) {
-        answer = Integer.MAX_VALUE;
-        visit = new boolean[words.length];
+        int n = words.length, ans = 0;
+        Queue<Node> q = new LinkedList<>();
+        boolean[] visit = new boolean[n];
         
-        dfs(begin, target, words, 0);
-        
-        return answer == Integer.MAX_VALUE ? 0 : answer;
-    }
+        q.add(new Node(begin, 0));
+
+        while (!q.isEmpty()) {
+            Node cur = q.poll();
+            
+            if (cur.next.equals(target)) {
+                ans = cur.edge;
+                break;
+            }
+
+            for (int i = 0; i < n; i++) {
+                if (!visit[i] && isNext(cur.next, words[i])) {
+                    visit[i] = true;
+                    q.add(new Node(words[i], cur.edge + 1));
+                }
+            }
+        }
+
+        return ans;
+    }   
 }
