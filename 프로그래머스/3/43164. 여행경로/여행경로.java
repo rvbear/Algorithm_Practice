@@ -1,22 +1,24 @@
 import java.util.*;
 
 class Solution {
-    boolean[] visit;
-    ArrayList<String> allRoute;
-    public void dfs(String start, String route, String[][] tickets, int depth) {
-        if(depth == tickets.length) {
+    private boolean[] visit;
+    private ArrayList<String> allRoute;
+    
+    private void dfs(String start, String route, String[][] tickets, int depth) {
+        if (depth == tickets.length) {
             allRoute.add(route);
             return;
         }
         
-        for(int i = 0; i < tickets.length; i++) {
-            if(!visit[i] && start.equals(tickets[i][0])) {
+        for (int i = 0; i < tickets.length; i++) {
+            if (!visit[i] && start.equals(tickets[i][0])) {
                 visit[i] = true;
                 dfs(tickets[i][1], route + " " + tickets[i][1], tickets, depth + 1);
                 visit[i] = false;
             }
         }
     }
+    
     public String[] solution(String[][] tickets) {
         String[] answer = {};
         visit = new boolean[tickets.length];
