@@ -7,12 +7,12 @@ class Solution {
         
         int index = 0, count = 0, total = 0, end = 0;
         
-        while(count < jobs.length) {
-            while(index < jobs.length && jobs[index][0] <= end) {
+        while (count < jobs.length) {
+            while (index < jobs.length && jobs[index][0] <= end) {
                 pq.add(jobs[index++]);
             }
             
-            if(pq.isEmpty()) {
+            if (pq.isEmpty()) {
                 end = jobs[index][0];
             } else {
                 int[] temp = pq.poll();
