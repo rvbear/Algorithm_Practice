@@ -3,7 +3,7 @@ class Solution {
         long answer = 0, purse1 = 0, purse2 = 0;
         boolean isPlus = true;
         
-        for(int num : sequence) {
+        for (int num : sequence) {
             purse1 += isPlus ? num : -num;
             purse2 += isPlus ? -num : num;
             
