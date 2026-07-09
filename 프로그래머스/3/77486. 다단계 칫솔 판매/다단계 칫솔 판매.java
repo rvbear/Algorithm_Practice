@@ -7,16 +7,16 @@ class Solution {
         Map<String, String> parent = new HashMap<>();
         Map<String, Integer> index = new HashMap<>();
         
-        for(int i = 0; i < enroll.length; i++) {
+        for (int i = 0; i < enroll.length; i++) {
             parent.put(enroll[i], referral[i]);
             index.put(enroll[i], i);
         }
         
-        for(int i = 0; i < seller.length; i++) {
+        for (int i = 0; i < seller.length; i++) {
             String now = seller[i];
             int profit = 100 * amount[i];
             
-            while(!now.equals("-")) {
+            while (!now.equals("-")) {
                 int giveProfit = profit / 10;
                 int nowProfit = profit - giveProfit;
                 
@@ -24,7 +24,7 @@ class Solution {
                 now = parent.get(now);
                 profit /= 10;
                 
-                if(profit < 1) {
+                if (profit < 1) {
                     break;
                 }
             }
