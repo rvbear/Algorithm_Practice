@@ -1,11 +1,11 @@
 import java.util.*;
 
 class Solution {
-    int n, m, ans;
-    int[][] board, t;
+    private int n, m, ans;
+    private int[][] board, t;
     
     private void filpRow(int r) {
-        for(int i = 0; i < m; i++) {
+        for (int i = 0; i < m; i++) {
             board[r][i] = (board[r][i] + 1) % 2;
         }
     }
@@ -13,8 +13,8 @@ class Solution {
     private int compareCol(int c) {
         int check = 0;
         
-        for(int i = 0; i < n; i++) {
-            if(board[i][c] == t[i][c]) {
+        for (int i = 0; i < n; i++) {
+            if (board[i][c] == t[i][c]) {
                 check++;
             }
         }
@@ -23,10 +23,11 @@ class Solution {
     }
     
     private void dfs(int r, int cnt) {
-        if(r == n) {
-            for(int i = 0; i < m; i++) {
+        if (r == n) {
+            for (int i = 0; i < m; i++) {
                 int res = compareCol(i);
-                if(res == -1) {
+                
+                if (res == -1) {
                     return;
                 }
                 
@@ -38,9 +39,9 @@ class Solution {
         }
         
         filpRow(r);
-        dfs(r+1, cnt+1);
+        dfs(r + 1, cnt + 1);
         filpRow(r);
-        dfs(r+1, cnt);
+        dfs(r + 1, cnt);
     }
     
     public int solution(int[][] beginning, int[][] target) {
@@ -49,7 +50,8 @@ class Solution {
         ans = Integer.MAX_VALUE;
         t = target;
         board = new int[n][m];
-        for(int i = 0; i < n; i++) {
+        
+        for (int i = 0; i < n; i++) {
             board[i] = beginning[i].clone();
         }
         
