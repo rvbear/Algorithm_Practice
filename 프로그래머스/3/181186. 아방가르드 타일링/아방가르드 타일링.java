@@ -11,9 +11,9 @@ class Solution {
         dp[6] = 170;
         
         for (int i = 7; i <= n; i++) {
-            dp[i] = (dp[i-1] + (2 * dp[i-2]) % MOD + (6 * dp[i-3]) % MOD + dp[i-4] -dp[i-6] + MOD) % MOD;
+            dp[i] = (dp[i - 1] + (2 * dp[i - 2]) % MOD + (6 * dp[i - 3]) % MOD + dp[i - 4] - dp[i - 6] + MOD) % MOD;
         }
         
-        return (int)dp[n] % MOD;
+        return (int) dp[n] % MOD;
     }
 }
